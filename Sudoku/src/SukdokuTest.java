@@ -1,26 +1,26 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.Test;
+import org.junit.After;
+import org.junit.Before;
 
-class SukdokuTest {
+public class SukdokuTest {
 
 	private Sudoku sudoku;
 	
-	@BeforeEach
+	@Before
 	public void setUp () {
 		sudoku = new Sudoku();
 	}
 	
-	@AfterEach
+	@After
 	public void tearDown () {
 		
 	}
 	
 	@Test
 	public void testSolveEmpty () {
-		assertTrue(sudoku.solve(), "Can't slve empty sudoku");
+		assertTrue("Can't solve empty sudoku", sudoku.solve());
 	}
 	
 	@Test
@@ -48,29 +48,29 @@ class SukdokuTest {
 			}
 		}
 		
-		assertTrue (equals, "Doesn't clear sudoku properly");
+		assertTrue ("Doesn't clear sudoku properly", equals);
 	}
 	
 	@Test
-	public void testSetField () {
-		assertTrue(sudoku.setField(0, 0, 5));
-		assertTrue(sudoku.getField(0, 0) == 5);
+	public void testField () {
+		assertTrue("Can't enter value to field", sudoku.setField(0, 0, 5));
+		assertTrue("Can't get value from field", sudoku.getField(0, 0) == 5);
 	}
 	
 	@Test
 	public void testRulesRow () {
 		sudoku.setField(0, 0, 1);
-		assertFalse(sudoku.ruleCheck(0, 7, 1), "Row rulecheck failed");
+		assertFalse("Row rulecheck failed", sudoku.ruleCheck(0, 7, 1));
 	}
 	
 	@Test
 	public void testRulesCol () {
 		sudoku.setField(0, 0, 1);
-		assertFalse(sudoku.ruleCheck(7, 0, 1), "Column rulecheck failed");
+		assertFalse("Column rulecheck failed", sudoku.ruleCheck(7, 0, 1));
 	}
 	
 	@Test public void testRulesArea () {
 		sudoku.setField(0, 0, 1);
-		assertFalse(sudoku.ruleCheck(2, 2, 1), "Area rulecheck failed");
+		assertFalse("Area rulecheck failed", sudoku.ruleCheck(2, 2, 1));
 	}
 }

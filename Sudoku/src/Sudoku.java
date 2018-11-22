@@ -5,18 +5,11 @@ public class Sudoku {
 
 	public static void main(String[] args) {
 		Sudoku s = new Sudoku();
-		System.out.println(s.getField(0, 0));
+		s.solve();
 	}
 
 	public Sudoku() {
 		grid = new int[9][9];
-
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				grid[i][j] = 0;
-			}
-		}
-
 		index = 0;
 	}
 
@@ -53,47 +46,15 @@ public class Sudoku {
 	}
 
 	private void print(int r, int c, int value) {
-		System.out.println(r + ", " + c + ": " + value);
+		System.out.println(r + ", " + c + " : " + value);
 	}
 
 	private boolean solve(int r, int c) {
-
-		return true;	// Temporary
-
-		// if (r == 8 && c == 8) { // If we reach the lower right corner of the board
-		// the sudoku is solved.
-		// return true;
-		// } else {
-		// for (int i = 1; i <= 9; i++) { // Loops through values 1-9 to insert in to
-		// the sudoku
-		//
-		// if (grid[r][c] != 0 && ruleCheck(r, c, grid[r][c])) {
-		// if (c < 8) {
-		// return solve(r, c + 1);
-		// } else if (r < 8) {
-		// return solve (r + 1, c);
-		// }
-		//
-		// } else if (grid[r][c] == 0 && ruleCheck(r, c, i)) { // Makes sure the value
-		// is valid for the specified field
-		// if (c < 8) {
-		// grid[r][c] = i; // If the value is valid and we are inside the field, add
-		// value i.
-		// return solve(r, c + 1); // Increase column value until we reach 8, at which
-		// point we reset to one and increase row.
-		// } else if (r < 8) {
-		// grid[r][c] = i; //If the value is valid and we are inside field, add value i.
-		// return solve(r + 1, 0); // Increase row value until we reach 8
-		// }
-		// }
-		// }
-		//
-		// if (grid[r][c] == 0) { // If the field contains 0, no number fit the rules
-		// return false; // Thus, we return false
-		// }
-		// }
-		//
-		// return false; // If no call for solve returns true we can't find a solution
+		if (r <= 8 && c <= 8) {		// Continue as long as we're inside the board
+			
+		}
+		
+		return true;
 	}
 
 	// Checks all three rules
@@ -109,7 +70,8 @@ public class Sudoku {
 			}
 		}
 
-		// grid[row][col] = value; // Otherwise, assign the value and return true
+		// grid[row][col] = value; // Otherwise, assign the value and return
+		// true
 		return true;
 	}
 
@@ -121,7 +83,8 @@ public class Sudoku {
 			}
 		}
 
-		// grid[row][col] = value; // Otherwise, assign the value and return true
+		// grid[row][col] = value; // Otherwise, assign the value and return
+		// true
 		return true;
 	}
 
@@ -134,7 +97,10 @@ public class Sudoku {
 
 		for (int i = rowMin; i < rowMax; i++) { // Loops within row-area
 			for (int j = colMin; i < colMax; i++) { // Loops within column-area
-				if (row != i && col != j && grid[i][j] == value) { // Checks for values and coordinates
+				if (row != i && col != j && grid[i][j] == value) { // Checks for
+																	// values
+																	// and
+																	// coordinates
 					return false;
 				}
 			}
