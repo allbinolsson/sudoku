@@ -6,6 +6,12 @@ public class Sudoku {
 	public static void main(String[] args) {
 		Sudoku s = new Sudoku();
 		s.solve();
+		
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				s.print(i, j, s.getField(i, j));
+			}
+		}
 	}
 
 	public Sudoku() {
@@ -50,10 +56,6 @@ public class Sudoku {
 	}
 
 	private boolean solve(int r, int c) {
-		if (r <= 8 && c <= 8) {		// Continue as long as we're inside the board
-			
-		}
-		
 		return true;
 	}
 
