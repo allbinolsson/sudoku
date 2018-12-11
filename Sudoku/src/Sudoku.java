@@ -56,7 +56,37 @@ public class Sudoku {
 	}
 
 	private boolean solve(int r, int c) {
-		return true;
+		if (r == 9) {
+			return true;
+		} else if (getField(r, c) == 0) {
+			for (int i = 0; i < 10; i++) {
+				if (ruleCheck(r, c, i)) {
+					setField(r, c, i);
+					print(r, c, i);
+					
+					if (c > 8 && solve(r + 1, 0)) {
+						return true;
+					} else if (c <= 8 && solve(r, c + 1)) {
+						return true;
+					}
+					
+				}
+			}
+			return false;
+		
+		} else {
+			if (ruleCheck(r, c, getField(r, c))) {
+				
+				if (c > 8) {
+					return solve(r + 1, 0);
+				} else {
+					return solve(r, c + 1);
+				}
+				
+			} else {
+				return false;
+			}
+		}
 	}
 
 	// Checks all three rules
