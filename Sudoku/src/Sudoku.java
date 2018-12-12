@@ -17,6 +17,12 @@ public class Sudoku {
 	public Sudoku() {
 		grid = new int[9][9];
 		index = 0;
+		
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				setField(i, j, 0);
+			}
+		}
 	}
 
 	/**
@@ -59,34 +65,31 @@ public class Sudoku {
 		if (r == 9) {
 			return true;
 		} else if (getField(r, c) == 0) {
-			for (int i = 0; i < 10; i++) {
+			for (int i = 1; i < 10; i++) {
 				if (ruleCheck(r, c, i)) {
 					setField(r, c, i);
 					print(r, c, i);
 					
-					if (c > 8 && solve(r + 1, 0)) {
-						return true;
-					} else if (c <= 8 && solve(r, c + 1)) {
-						return true;
+					if (c == 8) {
+						solve(r + 1, 0);
+					} else {
+						solve(r, c + 1);
 					}
-					
 				}
 			}
 			return false;
-		
 		} else {
 			if (ruleCheck(r, c, getField(r, c))) {
-				
-				if (c > 8) {
-					return solve(r + 1, 0);
+				if (c == 8) {
+					solve (r + 1, 0);
 				} else {
-					return solve(r, c + 1);
+					solve(r, c + 1);
 				}
-				
 			} else {
 				return false;
 			}
 		}
+		return false;
 	}
 
 	// Checks all three rules
@@ -97,7 +100,7 @@ public class Sudoku {
 	// This will return true if the specified value fits to the row.
 	private boolean checkRow(int row, int col, int value) {
 		for (int i = 0; i < 9; i++) { // Loops through the row
-			if (col != i && getField(row, i) == value) { // Doesn't check itself
+			if (getField(row, i) == value) { // Doesn't check itself
 				return false; // Checks if the value is in the row
 			}
 		}
@@ -110,7 +113,7 @@ public class Sudoku {
 	// This will return true if the specified value fits to the column
 	private boolean checkColumn(int row, int col, int value) {
 		for (int i = 0; i < 9; i++) { // Loops through the row
-			if (row != i && getField(i, col) == value) { // Doesn't check itself
+			if (getField(i, col) == value) { // Doesn't check itself
 				return false; // Checks if the value is in the row
 			}
 		}
@@ -128,8 +131,8 @@ public class Sudoku {
 		int colMax = colMin + 3;
 
 		for (int i = rowMin; i < rowMax; i++) { // Loops within row-area
-			for (int j = colMin; i < colMax; i++) { // Loops within column-area
-				if (row != i && col != j && grid[i][j] == value) { // Checks for
+			for (int j = colMin; j < colMax; j++) { // Loops within column-area
+				if (grid[i][j] == value) { // Checks for
 																	// values
 																	// and
 																	// coordinates
