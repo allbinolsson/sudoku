@@ -7,11 +7,6 @@ public class Sudoku {
 		Sudoku s = new Sudoku();
 		s.solve();
 		
-//		for (int i = 0; i < 9; i++) {
-//			for (int j = 0; j < 9; j++) {
-//				s.print(i, j, s.getField(i, j));
-//			}
-//		}
 		s.displaySudoku();
 	}
 
@@ -19,11 +14,7 @@ public class Sudoku {
 		grid = new int[9][9];
 		index = 0;
 		
-		for(int i = 0; i < 9; i++) {
-			for(int j = 0; j < 9; j++) {
-				setField(i, j, 0);
-			}
-		}
+		clear();
 	}
 
 	/**
@@ -46,15 +37,15 @@ public class Sudoku {
 	}
 
 	public void clear() {
-		grid = new int[9][9];
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < 9; j++) {
+				setField(i, j, index);
+			}
+		}
 	}
 
-//	public boolean solve() {
-//		return solve(0, 0);
-//	}
-
-	private void print(int r, int c, int value) {
-		System.out.println(r + ", " + c + " : " + value);
+	public boolean solveSudoku() {
+		return solve();
 	}
 
 	
