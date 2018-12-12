@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -20,14 +21,36 @@ public class SudokuViewer extends Application {
 	
 
 	public int getField(int x, int y) {
-		return Integer.parseInt(fields[x-1][y-1].getText());
+		if(!fields[x][y].getText().isEmpty()) {
+			return Integer.parseInt(fields[x][y].getText());
+		} else {
+			return -1;
+		}
 	}
 	
 	public void setField(int x, int y, int value) {
-		if(x < 10 && y < 10) {
-			fields[x-1][y-1].setText(Integer.toString(value));			
+		if(x < 9 && y < 9 && value != 0) {
+			fields[x][y].setText(Integer.toString(value));			
 		} else {
-			System.out.println("Setfield out of bounds: x-" + x + " y-" + y);
+			fields[x][y].setText("");
+		}
+	}
+	
+	public void updateSudoku() {
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < 9; j++) {
+				if(getField(i, j) != -1) {
+					sudoku.setField(i, j, getField(i, j));					
+				}
+			}
+		}
+	}
+	
+	public void updateBoard() {
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < 9; j++) {
+					setField(i, j, sudoku.getField(i, j));					
+			}
 		}
 	}
 
@@ -106,7 +129,21 @@ public class SudokuViewer extends Application {
 			board.getChildren().add(temp);
 		}
 		
-		root.getChildren().add(board);
+		Button bSolve = new Button("Solve");
+		Button bClear = new Button("Clear");
+		
+		bSolve.setOnAction((event) -> {
+			updateSudoku();
+			sudoku.solveSudoku();
+			updateBoard();
+		});
+		
+		bClear.setOnAction((event) -> {
+			sudoku.clear();
+			updateBoard();
+		});
+		
+		root.getChildren().addAll(board, bSolve, bClear);
 		Scene scene = new Scene(root, 1280, 720);
 		stage.setScene(scene);
 		stage.resizableProperty();
