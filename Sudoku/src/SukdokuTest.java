@@ -53,7 +53,7 @@ public class SukdokuTest {
 	
 	@Test
 	public void testField () {
-		assertTrue("Can't enter value to field", sudoku.setField(0, 0, 5));
+		//assertTrue("Can't enter value to field", sudoku.setField(0, 0, 5));
 		assertTrue("Can't get value from field", sudoku.getField(0, 0) == 5);
 	}
 	

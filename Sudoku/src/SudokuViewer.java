@@ -12,10 +12,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class SudokuController extends Application {
+public class SudokuViewer extends Application {
 	
 	private int boardSize = 600;
 	private TextField[][] fields = new TextField[9][9];
+	private Sudoku sudoku = new Sudoku();
 	
 
 	public int getField(int x, int y) {
