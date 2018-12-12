@@ -7,19 +7,20 @@ public class Sudoku {
 		Sudoku s = new Sudoku();
 		s.solve();
 		
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				s.print(i, j, s.getField(i, j));
-			}
-		}
+//		for (int i = 0; i < 9; i++) {
+//			for (int j = 0; j < 9; j++) {
+//				s.print(i, j, s.getField(i, j));
+//			}
+//		}
+		s.displaySudoku();
 	}
 
 	public Sudoku() {
 		grid = new int[9][9];
 		index = 0;
 		
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < 9; j++) {
 				setField(i, j, 0);
 			}
 		}
@@ -36,13 +37,8 @@ public class Sudoku {
 	 *            the value to assign the chosen field
 	 * @return true if a value was successfully added, false otherwise
 	 */
-	public boolean setField(int r, int c, int value) {
-		if (getField(r, c) != 0) {
-			return false;
-		} else {
+	public void setField(int r, int c, int value) {
 			grid[r][c] = value;
-			return true;
-		}
 	}
 
 	public int getField(int r, int c) {
@@ -53,43 +49,51 @@ public class Sudoku {
 		grid = new int[9][9];
 	}
 
-	public boolean solve() {
-		return solve(0, 0);
-	}
+//	public boolean solve() {
+//		return solve(0, 0);
+//	}
 
 	private void print(int r, int c, int value) {
 		System.out.println(r + ", " + c + " : " + value);
 	}
 
-	private boolean solve(int r, int c) {
-		if (r == 9) {
-			return true;
-		} else if (getField(r, c) == 0) {
-			for (int i = 1; i < 10; i++) {
-				if (ruleCheck(r, c, i)) {
-					setField(r, c, i);
-					print(r, c, i);
-					
-					if (c == 8) {
-						solve(r + 1, 0);
-					} else {
-						solve(r, c + 1);
-					}
-				}
+	
+	public void displaySudoku() {
+		for(int i = 0; i < 9; i++) {
+			if(i % 3 == 0 && i != 0) {
+				System.out.println("-------------------------------\n");
 			}
-			return false;
-		} else {
-			if (ruleCheck(r, c, getField(r, c))) {
-				if (c == 8) {
-					solve (r + 1, 0);
-				} else {
-					solve(r, c + 1);
+			for(int j = 0; j < 9; j++) {
+				if(j % 3 == 0 && j != 0) {
+					System.out.print(" | ");
 				}
-			} else {
-				return false;
+				System.out.print(" " + getField(i, j) + " ");
+			}
+			System.out.println();
+		}
+		System.out.println("\n\n______________________________________\n\n");
+	}
+
+	private boolean solve() {
+		for(int row = 0; row < 9; row++) {
+			for(int col = 0; col < 9; col++) {
+				if(getField(row, col) == 0) {
+					for(int number = 1; number <= 9; number++) {
+						if(ruleCheck(row, col, number)) {
+							setField(row, col, number);
+							if(solve()) {
+								return true;
+							} else {
+								setField(row, col, 0);
+							}
+						}
+					}
+					return false;
+				}
+
 			}
 		}
-		return false;
+		return true;
 	}
 
 	// Checks all three rules
@@ -132,7 +136,8 @@ public class Sudoku {
 
 		for (int i = rowMin; i < rowMax; i++) { // Loops within row-area
 			for (int j = colMin; j < colMax; j++) { // Loops within column-area
-				if (grid[i][j] == value) { // Checks for
+
+				if (row != i && col != j && grid[i][j] == value) { // Checks for
 																	// values
 																	// and
 																	// coordinates
