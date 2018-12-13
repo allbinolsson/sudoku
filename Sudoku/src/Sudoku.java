@@ -58,7 +58,7 @@ public class Sudoku {
 	public boolean solveSudoku() {
 		for (int i = 0; i < 9; i++) {		// Loops through board
 			for (int j = 0; j < 9; j++) {
-				if (getField(i, j) != 0 && ruleCheck(i, j, getField(i, j))) {
+				if (getField(i, j) != 0 && !ruleCheck(i, j, getField(i, j))) {
 					System.out.println("The sudoku is unsolvable!");
 					System.out.println("Field: " + i + ":" + j + "=" + getField(i, j));
 					return false;
