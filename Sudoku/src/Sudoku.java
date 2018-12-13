@@ -3,15 +3,15 @@ public class Sudoku {
 	private int[][] grid;
 	private int index;
 
-	public static void main(String[] args) {
-		Sudoku s = new Sudoku();
-		s.solve();
-		
-		s.displaySudoku();
-	}
+//	public static void main(String[] args) {
+//		Sudoku s = new Sudoku();
+//		s.solve();
+//		
+//		s.displaySudoku();
+//	}
 
 	/**
-	 * 
+	 * Creates an empty sudoku board.
 	 */
 	public Sudoku() {
 		grid = new int[9][9];
@@ -21,27 +21,27 @@ public class Sudoku {
 	}
 
 	/**
-	 * 
-	 * @param r
-	 * @param c
-	 * @param value
+	 * Enters a value at a specific field in the board.
+	 * @param r specifies the row
+	 * @param c specifies the column
+	 * @param value determines the value to enter in field
 	 */
 	public void setField(int r, int c, int value) {
 			grid[r][c] = value;
 	}
 	
 	/**
-	 * 
-	 * @param r
-	 * @param c
-	 * @return
+	 * Gets the value entered at a specific field in board. 0 if the field is empty.
+	 * @param r the row in board
+	 * @param c the column in board
+	 * @return the value belonging to field at (r, c)
 	 */
 	public int getField(int r, int c) {
 		return grid[r][c];
 	}
 
 	/**
-	 * 
+	 * Clears the board of all entered values.
 	 */
 	public void clear() {
 		for(int i = 0; i < 9; i++) {
@@ -52,8 +52,8 @@ public class Sudoku {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Tries to solve the sudoku based on the already entered values (if there are any).
+	 * @return true if sudoku was solved successfully, otherwise false.
 	 */
 	public boolean solveSudoku() {
 		for (int i = 0; i < 9; i++) {		// Loops through board
@@ -109,11 +109,11 @@ public class Sudoku {
 	}
 
 	/**
-	 * 
-	 * @param row
-	 * @param col
-	 * @param value
-	 * @return
+	 * Checks all the rules of sudoku for a specified field in the board.
+	 * @param row the row to check.
+	 * @param col the column to check
+	 * @param value the value to check for.
+	 * @return true if the value is valid in specified field, otherwise false.
 	 */
 	public boolean ruleCheck(int row, int col, int value) {
 		return (checkRow(row, col, value) && checkColumn(row, col, value) && checkArea(row, col, value));
