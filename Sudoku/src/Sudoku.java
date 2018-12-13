@@ -69,10 +69,8 @@ public class Sudoku {
 		return solve();
 	}
 
-	/**
-	 * 
-	 */
-	public void displaySudoku() {
+	// This was used for debugging
+	private void displaySudoku() {
 		for(int i = 0; i < 9; i++) {
 			if(i % 3 == 0 && i != 0) {
 				System.out.println("-------------------------------\n");
