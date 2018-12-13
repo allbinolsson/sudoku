@@ -20,7 +20,7 @@ public class SudokuViewer extends Application {
 	private Sudoku sudoku = new Sudoku();
 	
 
-	public int getField(int x, int y) {
+	private int getField(int x, int y) {
 		if(!fields[x][y].getText().isEmpty()) {
 			return Integer.parseInt(fields[x][y].getText());
 		} else {
@@ -28,7 +28,7 @@ public class SudokuViewer extends Application {
 		}
 	}
 	
-	public void setField(int x, int y, int value) {
+	private void setField(int x, int y, int value) {
 		if(x < 9 && y < 9 && value != 0) {
 			fields[x][y].setText(Integer.toString(value));			
 		} else {
@@ -36,7 +36,7 @@ public class SudokuViewer extends Application {
 		}
 	}
 	
-	public void updateSudoku() {
+	private void updateSudoku() {
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < 9; j++) {
 				if(getField(i, j) != -1) {
@@ -46,7 +46,7 @@ public class SudokuViewer extends Application {
 		}
 	}
 	
-	public void updateBoard() {
+	private void updateBoard() {
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < 9; j++) {
 					setField(i, j, sudoku.getField(i, j));					

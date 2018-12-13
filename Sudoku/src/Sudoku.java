@@ -58,7 +58,7 @@ public class Sudoku {
 	public boolean solveSudoku() {
 		for (int i = 0; i < 9; i++) {		// Loops through board
 			for (int j = 0; j < 9; j++) {
-				if (getField(i, j) != 0 && ruleCheck(i, j, getField(i, j))) {
+				if (getField(i, j) != index && !ruleCheck(i, j, getField(i, j))) {
 					System.out.println("The sudoku is unsolvable!");
 					System.out.println("Field: " + i + ":" + j + "=" + getField(i, j));
 					return false;
@@ -124,7 +124,7 @@ public class Sudoku {
 	// This will return true if the specified value fits to the row.
 	private boolean checkRow(int row, int col, int value) {
 		for (int i = 0; i < 9; i++) { // Loops through the row
-			if (getField(row, i) == value) { // Doesn't check itself
+			if (col != i && getField(row, i) == value) { // Doesn't check itself
 				return false; // Checks if the value is in the row
 			}
 		}
@@ -137,7 +137,7 @@ public class Sudoku {
 	// This will return true if the specified value fits to the column
 	private boolean checkColumn(int row, int col, int value) {
 		for (int i = 0; i < 9; i++) { // Loops through the row
-			if (getField(i, col) == value) { // Doesn't check itself
+			if (row != i && getField(i, col) == value) { // Doesn't check itself
 				return false; // Checks if the value is in the row
 			}
 		}
