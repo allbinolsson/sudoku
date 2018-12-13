@@ -20,7 +20,7 @@ public class SukdokuTest {
 
 	@Test
 	public void testSolveEmpty() {
-		assertTrue("Can't solve empty sudoku", sudoku.solve());
+		assertTrue("Can't solve empty sudoku", sudoku.solveSudoku());
 		
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -29,12 +29,23 @@ public class SukdokuTest {
 		}
 	}
 
-//	@Test
-//	public void testUnsolvable() {
-//		sudoku.setField(0, 0, 1);
-//		sudoku.setField(0, 1, 1);
-//		assertFalse("Impossible sudoku was 'solved'", sudoku.solve());
-//	}
+	@Test
+	public void testUnsolveable () {
+		sudoku.setField(0, 0, 1);	// This will add two 1's in first row
+		sudoku.setField(0, 1, 1);
+		assertFalse("Unsolvable sudoku was 'solved'", sudoku.solveSudoku());
+		sudoku.clear();
+		
+		sudoku.setField(0, 0, 1);	// This will add two 1's in first column
+		sudoku.setField(1, 0, 1);
+		assertFalse("Unsolvable sudoku was 'solved'", sudoku.solveSudoku());
+		sudoku.clear();
+		
+		sudoku.setField(0, 0, 1);	// This will add two 1's in first area
+		sudoku.setField(2, 2, 1);
+		assertFalse("Unsolvable sudoku was 'solved'", sudoku.solveSudoku());
+		sudoku.clear();
+	}
 
 	@Test
 	public void testSolve() {
@@ -42,7 +53,7 @@ public class SukdokuTest {
 		sudoku.setField(0, 1, 4);
 		sudoku.setField(8, 8, 1);
 		
-		assertTrue("Sudoku can't be solved", sudoku.solve());
+		assertTrue("Sudoku can't be solved", sudoku.solveSudoku());
 	}
 
 	@Test

@@ -10,6 +10,9 @@ public class Sudoku {
 		s.displaySudoku();
 	}
 
+	/**
+	 * 
+	 */
 	public Sudoku() {
 		grid = new int[9][9];
 		index = 0;
@@ -18,24 +21,28 @@ public class Sudoku {
 	}
 
 	/**
-	 * Returns true if a value is successfully added to a field on r, c.
 	 * 
 	 * @param r
-	 *            the row to alter
 	 * @param c
-	 *            the column to alter
 	 * @param value
-	 *            the value to assign the chosen field
-	 * @return true if a value was successfully added, false otherwise
 	 */
 	public void setField(int r, int c, int value) {
 			grid[r][c] = value;
 	}
-
+	
+	/**
+	 * 
+	 * @param r
+	 * @param c
+	 * @return
+	 */
 	public int getField(int r, int c) {
 		return grid[r][c];
 	}
 
+	/**
+	 * 
+	 */
 	public void clear() {
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < 9; j++) {
@@ -44,11 +51,27 @@ public class Sudoku {
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean solveSudoku() {
+		for (int i = 0; i < 9; i++) {		// Loops through board
+			for (int j = 0; j < 9; j++) {
+				if (getField(i, j) != 0 && ruleCheck(i, j, getField(i, j))) {
+					System.out.println("The sudoku is unsolvable!");
+					System.out.println("Field: " + i + ":" + j + "=" + getField(i, j));
+					return false;
+				}
+			}
+		}
+		
 		return solve();
 	}
 
-	
+	/**
+	 * 
+	 */
 	public void displaySudoku() {
 		for(int i = 0; i < 9; i++) {
 			if(i % 3 == 0 && i != 0) {
@@ -65,29 +88,35 @@ public class Sudoku {
 		System.out.println("\n\n______________________________________\n\n");
 	}
 
-	public boolean solve() {
-		for(int row = 0; row < 9; row++) {
-			for(int col = 0; col < 9; col++) {
-				if(getField(row, col) == 0) {
-					for(int number = 1; number <= 9; number++) {
-						if(ruleCheck(row, col, number)) {
-							setField(row, col, number);
-							if(solve()) {
-								return true;
+	private boolean solve() {
+		for(int row = 0; row < 9; row++) {				// Loop through rows
+			for(int col = 0; col < 9; col++) {			// Loop through columns
+				if(getField(row, col) == 0) {			// Checks if field is empty
+					for(int number = 1; number <= 9; number++) {	// Loops through all the valid numbers
+						if(ruleCheck(row, col, number)) {			// Checks the rules for specified number
+							setField(row, col, number);				// If valid: Enter value to field.
+							if(solve()) {				// Try to solve for next field that isn't filled
+								return true;			// Return true if possible
 							} else {
-								setField(row, col, 0);
+								setField(row, col, 0);	// Else: Reset field and try another number.
 							}
 						}
 					}
-					return false;
+					return false;		// If no number works: return false;
 				}
 
 			}
 		}
-		return true;
+		return true;		// All the fields are filled: return true!
 	}
 
-	// Checks all three rules
+	/**
+	 * 
+	 * @param row
+	 * @param col
+	 * @param value
+	 * @return
+	 */
 	public boolean ruleCheck(int row, int col, int value) {
 		return (checkRow(row, col, value) && checkColumn(row, col, value) && checkArea(row, col, value));
 	}
