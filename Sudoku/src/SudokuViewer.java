@@ -2,7 +2,10 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -76,7 +79,7 @@ public class SudokuViewer extends Application {
 		OneLetterTextField tf;
 		int r;
 		int c;
-		// Every loop is one of 9 groups
+		// Create the 9 areas
 		for(int i = 0; i < 9; i++) {
 			temp = new TilePane();
 			temp.setMinSize(boardSize / 3, boardSize / 3);
@@ -84,7 +87,7 @@ public class SudokuViewer extends Application {
 
 			temp.setPrefColumns(3);
 			
-			//Starting position of text box in a square
+			// Calculate startingposition of first square in area
 			if(group % 3 == 0) {
 				c = 0;
 			} else if(group % 3 == 1) {
@@ -134,8 +137,14 @@ public class SudokuViewer extends Application {
 		
 		bSolve.setOnAction((event) -> {
 			updateSudoku();
-			sudoku.solveSudoku();
-			updateBoard();
+			if(sudoku.solveSudoku()) {
+				updateBoard();	
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Error");
+				alert.setContentText("Board is unsolvable!");
+				alert.showAndWait();
+			}
 		});
 		
 		bClear.setOnAction((event) -> {
