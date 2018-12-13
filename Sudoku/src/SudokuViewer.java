@@ -56,6 +56,8 @@ public class SudokuViewer extends Application {
 			for(int j = 0; j < 9; j++) {
 				if(getField(i, j) != -1) {
 					sudoku.setField(i, j, getField(i, j));					
+				} else {
+					sudoku.setField(i, j, 0);
 				}
 			}
 		}
