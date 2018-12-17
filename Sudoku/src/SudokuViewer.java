@@ -33,6 +33,18 @@ public class SudokuViewer extends Application {
 		}
 	}
 	
+	public TextField[][] getFields () {
+		TextField[][] tempFields = new TextField[9][9];
+		
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				tempFields[i][j] = fields[i][j];
+			}
+		}
+		
+		return tempFields;
+	}
+	
 	/**
 	 * Sets the text in a textfield
 	 * 

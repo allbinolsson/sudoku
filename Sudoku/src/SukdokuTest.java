@@ -57,6 +57,58 @@ public class SukdokuTest {
 	}
 
 	@Test
+	public void testSpecificUnsolvable () {
+		sudoku.setField(0, 0, 1);
+		sudoku.setField(0, 1, 2);
+		sudoku.setField(0, 2, 3);
+		sudoku.setField(1, 0, 4);
+		sudoku.setField(1, 1, 5);
+		sudoku.setField(1, 2, 6);
+		sudoku.setField(2, 3, 7);
+		
+		assertFalse ("Specific unsolvable sudoku was 'solved'", sudoku.solveSudoku());
+	}
+	
+	@Test
+	public void testSpecificSolve () {
+		sudoku.setField(0, 2, 8);
+		sudoku.setField(0, 5, 9);
+		sudoku.setField(0, 7, 6);
+		sudoku.setField(0, 8, 2);
+		
+		sudoku.setField(1, 8, 5);
+		
+		sudoku.setField(2, 0, 1);
+		sudoku.setField(2, 2, 2);
+		sudoku.setField(2, 3, 5);
+		
+		sudoku.setField(3, 3, 2);
+		sudoku.setField(3, 4, 1);
+		sudoku.setField(3, 7, 9);
+		
+		sudoku.setField(4, 1, 5);
+		sudoku.setField(4, 6, 6);
+		
+		sudoku.setField(5, 0, 6);
+		sudoku.setField(5, 7, 2);
+		sudoku.setField(5, 8, 8);
+		
+		sudoku.setField(6, 0, 4);
+		sudoku.setField(6, 1, 1);
+		sudoku.setField(6, 3, 6);
+		sudoku.setField(6, 5, 8);
+		
+		sudoku.setField(7, 0, 8);
+		sudoku.setField(7, 1, 6);
+		sudoku.setField(7, 4, 3);
+		sudoku.setField(7, 6, 1);
+		
+		sudoku.setField(8, 6, 4);
+		
+		assertTrue("Specific solveable sudoku wasn't solved", sudoku.solveSudoku());
+	}
+	
+	@Test
 	public void testClear() {
 		
 		sudoku.setField(0, 0, 1);
