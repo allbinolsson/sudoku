@@ -2,6 +2,7 @@ import javafx.scene.control.TextField;
 
 public class Sudoku {
 	SudokuViewer viewer = new SudokuViewer();
+	private TextField[][] refBoard;		// This is for checking the initial board (written by user)
 	private int[][] grid;
 	private int index;
 
@@ -20,6 +21,8 @@ public class Sudoku {
 		index = 0;
 
 		clear();
+		
+		refBoard = viewer.getFields();
 	}
 
 	/**
@@ -121,43 +124,35 @@ public class Sudoku {
 		// }
 		// return true; // All the fields are filled: return true!
 
-		TextField[][] refBoard = viewer.getFields();
 		int newR;
 		int newC;
 
-		if (c != 8) {
-			newR = r;
-			newC = c++;
-		} else {
-			newR = r++;
-			newC = 0;
+		if (c != 8) {		// If not at right edge.
+			newR = r;		// Keep row coordinate
+			newC = c++;		// Increment column.
+		} else {			// IF all the way to the right
+			newR = r++;		// Increment row.
+			newC = 0;		// Reset column
 		}
 
 		if (r < 9) {
-			if (getField(r, c) == 0) { // Checks if field is empty
-				for (int number = 1; number <= 9; number++) { // Loops through
-																// all
-																// the valid
-																// numbers
-					if (ruleCheck(r, c, number)) { // Checks the rules for
-													// specified number
-						setField(r, c, number); // If valid: Enter value to
-												// field.
-						if (solve(newR, newC)) { // Try to solve for next field
-													// that isn't
-							// filled
-							return true; // Return true if possible
+			if (refBoard[r][c].getLength() == 0) {
+				for (int number = 1; number < 10; number++) {
+					if (ruleCheck (r, c, number)) {
+						setField(r, c, number);
+						
+						if (solve(newR, newC)) {
+							return true;
 						} else {
-							setField(r, c, 0); // Else: Reset field and try
-												// another number.
+							setField(r, c, 0);
 						}
 					}
 				}
-				return false; // If no number works: return false;
+				
+				return false;
+				
 			}
 		}
-
-		return solve(newR, newC);
 	}
 
 	/**
